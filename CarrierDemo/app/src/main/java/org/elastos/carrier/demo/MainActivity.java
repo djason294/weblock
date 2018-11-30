@@ -9,11 +9,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,7 +42,6 @@ import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class MainActivity extends Activity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +50,185 @@ public class MainActivity extends Activity {
         mSessionThread.start();
 
         setContentView(R.layout.activity_main);
+        TextView txtMsg = findViewById(R.id.txt_message);
+        txtMsg.setMovementMethod(new ScrollingMovementMethod());
+        Logger.init(txtMsg);
+
+        /****************************************************/
+        Button btnClearMsg = findViewById(R.id.btn_clear_msg);
+        btnClearMsg.setOnClickListener((view) -> {
+            Logger.clear();
+        });
+
+        Button btnMyAddr = findViewById(R.id.btn_my_addr);
+        btnMyAddr.setOnClickListener((view) -> {
+            showAddress();
+        });
+        Button btnScanAddr = findViewById(R.id.btn_scan_addr);
+        btnScanAddr.setOnClickListener((view) -> {
+            String address = getAddressFromTmp();
+            if(address != null) {
+                CarrierHelper.addFriend(address);
+                return;
+            }
+
+            scanAddress();
+        });
+        Button btnSendMsg = findViewById(R.id.btn_send_msg);
+        btnSendMsg.setOnClickListener((view) -> {
+            sendMessage();
+        });
+
+        /****************************************************/
+        Button btnCreateSession = findViewById(R.id.btn_create_session);
+        btnCreateSession.setOnClickListener((view) -> {
+            Handler handler = new Handler(mSessionThread.getLooper());
+            handler.post(() -> {
+                createSession();
+            });
+        });
+        Button btnSendSessionData = findViewById(R.id.btn_send_session_data);
+        btnSendSessionData.setOnClickListener((view) -> {
+            Handler handler = new Handler(mSessionThread.getLooper());
+            handler.post(() -> {
+                sendSessionData();
+            });
+        });
+        Button btnDeleteSession = findViewById(R.id.btn_delete_session);
+        btnDeleteSession.setOnClickListener((view) -> {
+            Handler handler = new Handler(mSessionThread.getLooper());
+            handler.post(() -> {
+                deleteSession();
+            });
+        });
+
+        /****************************************************/
+        Button btnOpenPFServer = findViewById(R.id.btn_open_pf_svc);
+        btnOpenPFServer.setOnClickListener((view) -> {
+            Handler handler = new Handler(mSessionThread.getLooper());
+            handler.post(() -> {
+                EditText txtIpAddr = new EditText(this);
+                txtIpAddr.setHint("your words");
+                txtIpAddr.setText("hello world!");
+                // EditText txtPort = new EditText(this);
+                // txtPort.setHint("Port");
+                // txtPort.setText("8080");
+
+                LinearLayout root = new LinearLayout(this);
+                root.setOrientation(LinearLayout.VERTICAL);
+                root.addView(txtIpAddr);
+                // root.addView(txtPort);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Post something");
+                builder.setView(root);
+                builder.setNegativeButton("Cancel", (dialog, which) -> {
+                    dialog.dismiss();
+                });
+                builder.setPositiveButton("OK", (dialog, which) -> {
+                    String msg = txtIpAddr.getText().toString();
+                    // String port = txtPort.getText().toString();
+                    //openPFServer(ipaddr, port);
+                    CarrierHelper.post(CarrierHelper.getAddress(),msg);
+                });
+                builder.create().show();
+            });
+        });
+        Button btnOpenPFClient = findViewById(R.id.btn_open_pf_cli);
+        btnOpenPFClient.setOnClickListener((view) -> {
+            Handler handler = new Handler(mSessionThread.getLooper());
+            handler.post(() -> {
+                String localIpAddr = getLocalIpAddress();
+//                EditText txtIpAddr = new EditText(this);
+//                txtIpAddr.setText(localIpAddr);
+//                txtIpAddr.setEnabled(false);
+//                txtIpAddr.setFocusable(false);
+//                txtIpAddr.setFocusableInTouchMode(false);
+                EditText txtPort = new EditText(this);
+                txtPort.setHint("Port");
+                txtPort.setText("hellow world!");
+
+                LinearLayout root = new LinearLayout(this);
+                root.setOrientation(LinearLayout.VERTICAL);
+                //root.addView(txtIpAddr);
+                root.addView(txtPort);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Post something");
+                builder.setView(root);
+                builder.setNegativeButton("Cancel", (dialog, which) -> {
+                    dialog.dismiss();
+                });
+                builder.setPositiveButton("OK", (dialog, which) -> {
+                    //String ipaddr = txtIpAddr.getText().toString();
+                    //String port = txtPort.getText().toString();
+                    //openPFClient(ipaddr, port);
+                    CarrierHelper.post(CarrierHelper.getAddress(),txtPort.getText().toString());
+                });
+                builder.create().show();
+            });
+        });
+        Button btnClosePF = findViewById(R.id.btn_close_pf);
+        btnClosePF.setOnClickListener((view) -> {
+            Handler handler = new Handler(mSessionThread.getLooper());
+            handler.post(() -> {
+                closePF();
+            });
+        });
+        Button btnOpenPFPeerSvc = findViewById(R.id.btn_open_pf_peer_svc);
+        btnOpenPFPeerSvc.setOnClickListener((view) -> {
+            Handler handler = new Handler(mSessionThread.getLooper());
+            handler.post(() -> {
+                EditText txtIpAddr = new EditText(this);
+                txtIpAddr.setHint("IP Address");
+                txtIpAddr.setText("192.168.33.60");
+                EditText txtPort = new EditText(this);
+                txtPort.setHint("Port");
+                txtPort.setText("8080");
+
+                LinearLayout root = new LinearLayout(this);
+                root.setOrientation(LinearLayout.VERTICAL);
+                root.addView(txtIpAddr);
+                root.addView(txtPort);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("PF Peer Server");
+                builder.setView(root);
+                builder.setNegativeButton("Cancel", (dialog, which) -> {
+                    dialog.dismiss();
+                });
+                builder.setPositiveButton("OK", (dialog, which) -> {
+                    String ipaddr = txtIpAddr.getText().toString();
+                    String port = txtPort.getText().toString();
+                    openPFPeerServer(ipaddr, port);
+                });
+                builder.create().show();
+            });
+        });
+
+        /****************************************************/
+        Button btnOpenChannel = findViewById(R.id.btn_open_channel);
+        btnOpenChannel.setOnClickListener((view) -> {
+            Handler handler = new Handler(mSessionThread.getLooper());
+            handler.post(() -> {
+                openChannel();
+            });
+        });
+        Button btnSendChannelData = findViewById(R.id.btn_send_channel_data);
+        btnSendChannelData.setOnClickListener((view) -> {
+            Handler handler = new Handler(mSessionThread.getLooper());
+            handler.post(() -> {
+                sendChannelData();
+            });
+        });
+        Button btnCloseChannel = findViewById(R.id.btn_close_channel);
+        btnCloseChannel.setOnClickListener((view) -> {
+            Handler handler = new Handler(mSessionThread.getLooper());
+            handler.post(() -> {
+                closeChannel();
+            });
+        });
+
 
         /****************************************************/
         CarrierHelper.startCarrier(this);

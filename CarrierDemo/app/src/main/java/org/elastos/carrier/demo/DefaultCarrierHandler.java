@@ -94,7 +94,7 @@ public class DefaultCarrierHandler extends AbstractCarrierHandler {
                 return;
             String userId = list[1];
             for(Map.Entry<String,String> entry : CarrierHelper.posts.entrySet()){
-                if(entry.getValue()==userId)
+                if(entry.getValue().equals(userId) || userId.isEmpty())
                     CarrierHelper.post(userId,entry.getKey());
             }
 

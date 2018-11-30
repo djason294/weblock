@@ -141,6 +141,11 @@ public final class CarrierHelper {
         }
     }
 
+    public static void sendRequest(String peerUserId,String arg1,String arg2,String arg3){
+
+    }
+
+
     public  static void introduce(String address, int n){
 
         List<FriendInfo> friendList = CarrierHelper.getFriendList();

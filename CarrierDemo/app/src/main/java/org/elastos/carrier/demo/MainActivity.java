@@ -2,6 +2,7 @@ package org.elastos.carrier.demo;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -11,13 +12,16 @@ import android.os.HandlerThread;
 import android.os.Looper;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blikoon.qrcodescanner.QrCodeActivity;
 import com.google.zxing.BarcodeFormat;
@@ -66,6 +70,17 @@ public class MainActivity extends Activity {
         CarrierHelper.adapter = new MyListViewAdapter(this, R.layout.post_item, users);
         ListView listView = (ListView) findViewById(R.id.list_view);
         listView.setAdapter(CarrierHelper.adapter);
+
+        Context context = this;
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
+                PostItem item= (PostItem) CarrierHelper.adapter.getItem(position);
+                //CarrierHelper.tip(item.name,1);
+                Toast.makeText(context, "tipped 1 ela", Toast.LENGTH_SHORT).show();
+                return true;//松开后不会显示点击事件
+            }
+        });
 
         /****************************************************/
         Button btnClearMsg = findViewById(R.id.btn_clear_msg);

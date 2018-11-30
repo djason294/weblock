@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.blikoon.qrcodescanner.QrCodeActivity;
@@ -26,6 +27,7 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 import org.elastos.carrier.Carrier;
+import org.elastos.carrier.UserInfo;
 import org.elastos.carrier.demo.session.CarrierSessionHelper;
 import org.elastos.carrier.demo.session.CarrierSessionInfo;
 import org.elastos.carrier.session.ManagerHandler;
@@ -37,8 +39,10 @@ import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class MainActivity extends Activity {
@@ -53,6 +57,15 @@ public class MainActivity extends Activity {
         TextView txtMsg = findViewById(R.id.txt_message);
         txtMsg.setMovementMethod(new ScrollingMovementMethod());
         Logger.init(txtMsg);
+
+        List<PostItem> users = new ArrayList<PostItem>();
+        users.add(new PostItem("user1","Hello World!\n bla bla bla"));
+        users.add(new PostItem("user2","Hello World!\n bla bla bla"));
+        users.add(new PostItem("user3","Hello World!\n bla bla bla"));
+
+        CarrierHelper.adapter = new MyListViewAdapter(this, R.layout.post_item, users);
+        ListView listView = (ListView) findViewById(R.id.list_view);
+        listView.setAdapter(CarrierHelper.adapter);
 
         /****************************************************/
         Button btnClearMsg = findViewById(R.id.btn_clear_msg);

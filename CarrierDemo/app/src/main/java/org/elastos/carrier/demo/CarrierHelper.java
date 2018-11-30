@@ -10,6 +10,7 @@ import org.elastos.carrier.demo.session.CarrierSessionHelper;
 import org.elastos.carrier.demo.Transaction;
 import java.security.MessageDigest;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,7 @@ public final class CarrierHelper {
             "0365B7170F3B21AEA6A82D39884E2B6ACE914D1848FE77B13382FD89230ECE3D25",
             "1C43119EC461196610B773C8FA4E8A778E4922A08E0C7F0D5F90BE3654542E35");
     public  static  Wallet curWallet = wallet1;
+    public  static MyListViewAdapter adapter;
 
     public static void startCarrier(Context context) {
         try {

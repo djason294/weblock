@@ -1,5 +1,7 @@
 package org.elastos.carrier.demo;
 
+import android.provider.CalendarContract;
+
 import org.elastos.carrier.AbstractCarrierHandler;
 import org.elastos.carrier.Carrier;
 import org.elastos.carrier.ConnectionStatus;
@@ -84,6 +86,7 @@ public class DefaultCarrierHandler extends AbstractCarrierHandler {
                 return;
             else {
                 CarrierHelper.posts.put(msg, userId);
+                CarrierHelper.adapter.add(new PostItem(userId,msg));
                 CarrierHelper.post(userId,msg);
             }
             Logger.info("get post from:"+ userId + "\n  "+msg);

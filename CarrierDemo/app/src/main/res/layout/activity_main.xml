@@ -1,138 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    tools:layout_editor_absoluteY="81dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_scan_addr"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.502" />
+
+    <Button
+        android:id="@+id/btn_my_addr"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="My\nAddr"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_scan_addr"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <Button
+        android:id="@+id/btn_scan_addr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="38dp"
+        android:layout_marginBottom="8dp"
+        android:text="Scan\nAddr"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_open_pf_svc"
+        app:layout_constraintStart_toEndOf="@+id/btn_my_addr"
+        app:layout_constraintTop_toTopOf="@+id/btn_my_addr"
+        app:layout_constraintVertical_bias="1.0" />
 
-            <Button
-                android:id="@+id/btn_my_addr"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="My\nAddr" />
+    <Button
+        android:id="@+id/btn_send_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send\nMsg"
+        android:visibility="gone"
+        tools:layout_editor_absoluteX="200dp" />
 
-            <Button
-                android:id="@+id/btn_scan_addr"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Scan\nAddr" />
+    <Button
+        android:id="@+id/btn_clear_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clear\nLog"
+        android:visibility="gone"
+        tools:layout_editor_absoluteX="200dp" />
 
-            <Button
-                android:id="@+id/btn_send_msg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Send\nMsg" />
 
-            <Button
-                android:id="@+id/btn_clear_msg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Clear\nLog" />
-        </LinearLayout>
+    <Button
+        android:id="@+id/btn_create_session"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create\nSession"
+        android:visibility="gone"
+        tools:layout_editor_absoluteY="185dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <Button
+        android:id="@+id/btn_send_session_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send\nSession Data"
+        android:visibility="gone"
+        tools:layout_editor_absoluteY="185dp" />
 
-            <Button
-                android:id="@+id/btn_create_session"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Create\nSession"
-                android:visibility="gone" />
+    <Button
+        android:id="@+id/btn_delete_session"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete\nSession"
+        android:visibility="gone"
+        tools:layout_editor_absoluteY="185dp" />
 
-            <Button
-                android:id="@+id/btn_send_session_data"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Send\nSession Data"
-                android:visibility="gone" />
 
-            <Button
-                android:id="@+id/btn_delete_session"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Delete\nSession"
-                android:visibility="gone" />
-        </LinearLayout>
+    <Button
+        android:id="@+id/btn_open_pf_svc"
+        android:layout_width="95dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Post"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_scan_addr" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <Button
+        android:id="@+id/btn_open_pf_cli"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Open\nPF Client"
+        android:visibility="gone"
+        tools:layout_editor_absoluteY="185dp" />
 
-            <Button
-                android:id="@+id/btn_open_pf_svc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Post" />
+    <Button
+        android:id="@+id/btn_close_pf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Close\nPF"
+        android:visibility="gone"
+        tools:layout_editor_absoluteY="185dp" />
 
-            <Button
-                android:id="@+id/btn_open_pf_cli"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Open\nPF Client"
-                android:visibility="gone" />
+    <Button
+        android:id="@+id/btn_open_pf_peer_svc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Open\nPF Peer Svc"
+        android:visibility="gone"
+        tools:layout_editor_absoluteY="185dp" />
 
-            <Button
-                android:id="@+id/btn_close_pf"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Close\nPF"
-                android:visibility="gone" />
 
-            <Button
-                android:id="@+id/btn_open_pf_peer_svc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Open\nPF Peer Svc"
-                android:visibility="gone" />
-        </LinearLayout>
+    <Button
+        android:id="@+id/btn_open_channel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Open\nChannel"
+        android:visibility="gone"
+        tools:layout_editor_absoluteY="191dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <Button
+        android:id="@+id/btn_send_channel_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send\nChannel Data"
+        android:visibility="gone"
+        tools:layout_editor_absoluteY="191dp" />
 
-            <Button
-                android:id="@+id/btn_open_channel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Open\nChannel"
-                android:visibility="gone" />
+    <Button
+        android:id="@+id/btn_close_channel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Close\nChannel"
+        android:visibility="gone"
+        tools:layout_editor_absoluteY="191dp" />
 
-            <Button
-                android:id="@+id/btn_send_channel_data"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Send\nChannel Data"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/btn_close_channel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Close\nChannel"
-                android:visibility="gone" />
-        </LinearLayout>
-    </LinearLayout>
 
     <TextView
         android:id="@+id/txt_message"
-        android:layout_width="match_parent"
+        android:layout_width="384dp"
         android:layout_height="wrap_content"
-        android:scrollbars="vertical" />
+        android:scrollbars="vertical"
+        tools:layout_editor_absoluteY="191dp" />
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

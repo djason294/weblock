@@ -92,6 +92,14 @@ public class MainActivity extends Activity {
         btnMyAddr.setOnClickListener((view) -> {
             showAddress();
         });
+        btnMyAddr.setOnLongClickListener((view) -> {
+            if(txtMsg.getVisibility()!=View.GONE)
+                txtMsg.setVisibility(View.GONE);
+            else
+                txtMsg.setVisibility(View.VISIBLE);
+            return true;
+        });
+
         Button btnScanAddr = findViewById(R.id.btn_scan_addr);
         btnScanAddr.setOnClickListener((view) -> {
             String address = getAddressFromTmp();

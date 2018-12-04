@@ -199,7 +199,7 @@ public class MainActivity extends Activity {
                     //String ipaddr = txtIpAddr.getText().toString();
                     //String port = txtPort.getText().toString();
                     //openPFClient(ipaddr, port);
-                    CarrierHelper.post(CarrierHelper.getAddress(),txtPort.getText().toString());
+                    CarrierHelper.post(CarrierHelper.wallet1.pubKey,txtPort.getText().toString());
                 });
                 builder.create().show();
             });

@@ -28,6 +28,7 @@ public class MyListViewAdapter extends ArrayAdapter {
 
         // 获取ImageView和TextView
         ImageView imageView = (ImageView) postView.findViewById(R.id.imageView_avatar);
+        //imageView.setImageDrawable(R.drawable.ic_launcher_foreground);
         TextView addr = (TextView) postView.findViewById(R.id.textView_addr);
         TextView brief = (TextView) postView.findViewById(R.id.textView_brief);
 

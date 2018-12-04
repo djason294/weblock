@@ -161,6 +161,8 @@ public final class CarrierHelper {
 
     public  static void post(String userId,String msg){
         CarrierHelper.posts.put(msg,userId);
+        //CarrierHelper.adapter.add(new PostItem(userId.substring(0,5),msg));
+        //CarrierHelper.adapter.notifyDataSetChanged();
         List<FriendInfo> friendList = CarrierHelper.getFriendList();
         if(friendList != null) {
             for(FriendInfo info: friendList) {

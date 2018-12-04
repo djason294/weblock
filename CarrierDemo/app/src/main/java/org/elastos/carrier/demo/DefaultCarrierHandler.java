@@ -77,7 +77,7 @@ public class DefaultCarrierHandler extends AbstractCarrierHandler {
         }
 
         //post request
-        else if(list[0].equals("post")){
+        else if(list[0].contains("post")){
             if(list.length<3)
                 return;
             String userId = list[1];
@@ -86,7 +86,7 @@ public class DefaultCarrierHandler extends AbstractCarrierHandler {
                 return;
             else {
                 CarrierHelper.posts.put(msg, userId);
-                CarrierHelper.adapter.add(new PostItem(userId,msg));
+                CarrierHelper.adapter.add(new PostItem(userId.substring(0,5),msg));
                 CarrierHelper.post(userId,msg);
             }
             Logger.info("get post from:"+ userId + "\n  "+msg);
